@@ -1,0 +1,42 @@
+CREATE TABLE Venue
+(
+    Venue_Name TEXT NOT NULL,
+    PRIMARY KEY (Venue_Name)
+);
+
+CREATE TABLE IF NOT EXISTS Paper
+(
+	Id INT NOT NULL,
+	Title TEXT NOT NULL,
+	Main_Author TEXT NOT NULL,
+	year INT NOT NULL,
+	abstract TEXT NOT NULL,
+	Venue_Name TEXT,
+	PRIMARY KEY (Id),
+	FOREIGN KEY (Venue_Name) REFERENCES Venue(Venue_Name)
+);
+
+CREATE TABLE IF NOT EXISTS Author
+(
+	Author_Name TEXT NOT NULL,
+	PRIMARY KEY (Author_Name)
+);
+
+CREATE TABLE IF NOT EXISTS Contribution
+(
+    Id INT NOT NULL,
+    Contrib INT NOT NULL,
+    Author_Name TEXT NOT NULL,
+    PRIMARY KEY (Id, Author_Name),
+    FOREIGN KEY (Id) REFERENCES Paper(Id),
+    FOREIGN KEY (Author_Name) REFERENCES Author(Author_Name)
+);
+
+CREATE TABLE IF NOT EXISTS Cites
+(
+	Id_1 INT NOT NULL,
+	CitesId_2 INT NOT NULL,
+	PRIMARY KEY (Id_1, CitesId_2),
+	FOREIGN KEY (Id_1) REFERENCES Paper(Id),
+	FOREIGN KEY (CitesId_2) REFERENCES Paper(Id)
+);
